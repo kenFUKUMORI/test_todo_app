@@ -12,7 +12,7 @@ class Todos(models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     todo_title = models.CharField(max_length=50)
     todo_deadline = models.DateTimeField()
-    user_id = models.ForeignKey(CustomUser, on_delete=models.PROJECT)
+    user_id = models.ForeignKey(CustomUser, on_delete=models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     status = models.CharField(choices=status_choices, max_length=30)
