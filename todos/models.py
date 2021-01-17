@@ -8,7 +8,11 @@ status_choices = (
             ('inprogress', 'in progress'),
         )
 
-class Todos(models.Model):
+class Todo(models.Model):
+
+    class Meta:
+        db_table = "todo"
+
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     todo_title = models.CharField(max_length=50)
     todo_deadline = models.DateTimeField()
