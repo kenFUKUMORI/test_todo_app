@@ -1,4 +1,7 @@
 {% for todo in return_todo_list %}
 
     <p>{{ todo.todo_title }}</p>
+    <form method="POST" action="{% url "delete" todo.id %}">
+        {% csrf_token %}<input type="submit" value="DELETE">
+     </form>
 {% endfor %}

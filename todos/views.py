@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, DeleteView
 
 from accounts.models import CustomUser
 
@@ -26,6 +26,10 @@ class TodoCreateView(CreateView):
     def form_valid(self, form):
         form.instance.user_id = self.request.user
         return super(TodoCreateView, self).form_valid(form)
+
+class TodoDeleteView(DeleteView):
+    model = Todo
+    success_url = "/todo/list"
 
 
 todo_views = MyTodoView.as_view()
