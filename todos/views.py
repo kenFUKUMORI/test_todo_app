@@ -1,7 +1,11 @@
 from django.shortcuts import render
 from django.views import View
-from .models import Todo
+from django.views.generic import CreateView, UpdateView
 
+from accounts.models import CustomUser
+
+from .models import Todo
+from .forms import TodoForm
 
 class MyTodoView(View):
     def get(self, request, *args, **kwargs):
@@ -12,6 +16,16 @@ class MyTodoView(View):
         }
         print(todo_list)
         return render(request, 'todos/index.html', {'return_todo_list': todo_list})
+
+class TodoCreateView(CreateView):
+    model = Todo
+    form_class = TodoForm
+    template_name= "todos/form.html"
+    success_url = "/todo/list"
+
+    def form_valid(self, form):
+        form.instance.user_id = self.request.user
+        return super(TodoCreateView, self).form_valid(form)
 
 
 todo_views = MyTodoView.as_view()
